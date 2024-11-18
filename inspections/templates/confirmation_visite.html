@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmation{% endblock %}
+
+{% block content %}
+<div class="confirmation-message">
+    <h2>Visite Enregistrée avec Succès !</h2>
+
+    <!-- Détails de la visite -->
+    <p><strong>Enseignant :</strong> {{ visite.enseignant_visite.nom_enseignant }}</p>
+    <p><strong>Date de la visite :</strong> {{ visite.date_visite }}</p>
+    <p><strong>Inspecteur :</strong> {{ visite.nom_inspecteur }}</p>
+
+    <!-- Boutons d'action -->
+    <div class="button-group">
+        <a href="{% url 'creer_visite' %}" class="btn-confirm">Ajouter une Nouvelle Visite</a>
+        <a href="{% url 'liste_visites' %}" class="btn-confirm">Retour à la Liste</a>
+    </div>
+</div>
+{% endblock %}

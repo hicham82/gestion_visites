@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Application Visites{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script>
+    function showMessage(type, message) {
+        Swal.fire({
+            icon: type, // 'success', 'error', 'warning', 'info'
+            title: type === 'success' ? 'Succès' : 'Erreur',
+            text: message,
+            timer: 3000,
+            showConfirmButton: false
+        });
+    }
+</script>
+
+
+</head>
+<body>
+   <header>
+    <h1>Application de Gestion des Visites</h1>
+    <nav>
+        {% if user.is_authenticated %}
+            <span class="user-greeting">Bonjour, {{ user.get_full_name|default:user.username }}</span> |
+            <a href="{% url 'liste_visites' %}">Liste des Visites</a> |
+            <a href="{% url 'creer_visite' %}">Ajouter Visite</a> |
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="logout-button">Déconnexion</button>
+            </form>
+        {% else %}
+            <span class="user-greeting">Bienvenue sur l'application</span>
+        {% endif %}
+    </nav>
+</header>
+
+
+
+
+
+
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Application Visites</p>
+    </footer>
+
+  <!-- Script pour sélectionner ou désélectionner toutes les cases -->
+    <script>
+        function toggleSelectAll(checkbox) {
+            const checkboxes = document.querySelectorAll('input[name="visite_ids"]');
+            checkboxes.forEach(cb => cb.checked = checkbox.checked);
+        }
+    </script>
+
+</>
+</html>
+

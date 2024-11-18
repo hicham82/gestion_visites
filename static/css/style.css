@@ -1,0 +1,718 @@
+/* Style général */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.container {
+    width: 100%; /* Utilise toute la largeur de l'écran */
+    margin: 0 auto; /* Centre le contenu verticalement */
+    padding: 5px; /* Ajoute un léger padding pour éviter que le texte touche les bords */
+    max-width: none; /* Enlève la limite de largeur maximale si elle existe */
+}
+
+
+/* Header */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+header nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.logout-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
+/* Style pour le message de bienvenue */
+.user-greeting {
+    font-weight: bold;
+    color: #4CAF50; /* Vert pour correspondre au thème */
+    margin-right: 10px;
+}
+
+/* Style pour les boutons du header */
+header nav a, header nav .logout-button {
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+header nav .logout-button {
+    background-color: #ff4d4d; /* Rouge doux */
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+header nav .logout-button:hover {
+    background-color: #e60000; /* Rouge plus vif */
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 14px;
+    margin-top: auto;
+}
+
+/* Style des formulaires de connexion et de création/modification de visite */
+.form-container {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.form-container h1, .form-container h2 {
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.form-container label {
+    font-weight: bold;
+    color: #333;
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.form-container input[type="text"],
+.form-container input[type="password"],
+.form-container input[type="date"],
+.form-container input[type="time"],
+.form-container select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-container button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.form-container button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Tableau de liste des visites */
+.table-container {
+    overflow-y: hidden; /* Désactive la barre de défilement verticale */
+    overflow-x: auto;
+    width: 100%;
+    max-height: none; /* Supprime toute limitation de hauteur */
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    table-layout: auto; /* Assure que les colonnes s'adaptent à la largeur du contenu */
+    border-collapse: collapse;
+    margin: 0px;
+    font-size: 14px;
+}
+
+table th, table td {
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+table th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Boutons dans le tableau */
+.table-action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.table-action-buttons a {
+    padding: 6px 10px;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.table-action-buttons .btn-edit {
+    background-color: #007bff;
+}
+
+.table-action-buttons .btn-delete {
+    background-color: #dc3545;
+}
+
+.table-action-buttons .btn-info {
+    background-color: #17a2b8;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination a, .pagination strong {
+    padding: 8px 12px;
+    color: #4CAF50;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.pagination a:hover, .pagination strong {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Formulaire de filtre */
+.filter-form {
+    display: flex; /* Place les éléments sur une seule ligne */
+    justify-content: center; /* Centre les filtres horizontalement */
+    align-items: center; /* Aligne verticalement les éléments */
+    gap: 15px; /* Espace entre chaque élément */
+    padding: 10px; /* Espacement interne autour des filtres */
+    background-color: #f4f4f9; /* Couleur de fond */
+    border: 1px solid #ddd; /* Bordure légère */
+    border-radius: 5px; /* Coins arrondis */
+    margin-bottom: 20px; /* Espacement sous le formulaire */
+}
+
+.filter-form input[type="text"], .filter-form input[type="date"] {
+    padding: 8px; /* Espacement interne des champs */
+    border: 1px solid #ddd; /* Bordure des champs */
+    border-radius: 4px; /* Coins arrondis */
+    width: 200px; /* Largeur fixe des champs */
+}
+
+.filter-form button[type="submit"] {
+    padding: 8px 16px; /* Taille du bouton */
+    background-color: #4CAF50; /* Couleur verte */
+    color: white; /* Texte blanc */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Coins arrondis */
+    cursor: pointer; /* Curseur clic sur le bouton */
+}
+
+.filter-form button[type="submit"]:hover {
+    background-color: #45a049; /* Couleur légèrement plus foncée au survol */
+}
+
+/* Page de connexion */
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.login-container h2 {
+    color: #4CAF50;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.login-container label {
+    font-weight: bold;
+    color: #333;
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.login-container button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.login-container button[type="submit"]:hover {
+    background-color: #45a049;
+}
+/* Style pour le formulaire de filtre en ligne */
+.filter-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    background-color: #f4f4f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Assure que les éléments passent à la ligne si l'espace est insuffisant */
+}
+
+.filter-form label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.filter-form input[type="text"],
+.filter-form input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 150px;
+}
+
+.filter-form button[type="submit"] {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filter-form button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+/* Bouton de téléchargement */
+.download-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.download-button:hover {
+    background-color: #0056b3;
+}
+/* Conteneur principal pour la page de suppression */
+.delete-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff3f3; /* Couleur de fond légère pour un avertissement */
+    border: 1px solid #e0a3a3; /* Bordure rouge clair */
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre subtile */
+}
+
+/* Titre de la page */
+.delete-container h2 {
+    color: #d9534f; /* Rouge pour attirer l'attention */
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+/* Texte descriptif */
+.delete-container p {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Boutons d'action */
+.delete-actions {
+    margin-top: 20px;
+}
+
+.delete-actions .btn-delete {
+    padding: 10px 20px;
+    background-color: #d9534f; /* Rouge pour "Supprimer" */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 10px;
+    text-decoration: none; /* Pour éviter les soulignements */
+}
+
+.delete-actions .btn-delete:hover {
+    background-color: #c9302c; /* Rouge plus foncé au survol */
+}
+
+.delete-actions .btn-cancel {
+    padding: 10px 20px;
+    background-color: #6c757d; /* Gris pour "Annuler" */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.delete-actions .btn-cancel:hover {
+    background-color: #5a6268; /* Gris plus foncé au survol */
+}
+/* Conteneur général pour le message de confirmation */
+.confirmation-message {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #e8f5e9; /* Couleur verte très claire */
+    border: 2px solid #4CAF50; /* Bordure verte */
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
+/* Titre de confirmation */
+.confirmation-message h2 {
+    color: #388E3C; /* Couleur verte pour le titre */
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Texte des détails de la visite */
+.confirmation-message p {
+    color: #333; /* Couleur sombre pour la lisibilité */
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+/* Conteneur des boutons */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Espacement entre les boutons */
+    margin-top: 20px;
+}
+
+/* Boutons d'action */
+.button-group .btn-confirm {
+    padding: 10px 25px;
+    background-color: #4CAF50; /* Couleur verte pour les boutons */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Effet au survol */
+}
+
+.button-group .btn-confirm:hover {
+    background-color: #388E3C; /* Couleur verte plus foncée au survol */
+}
+
+/* Conteneur principal pour la page des détails */
+.details-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre principal */
+.details-container h2 {
+    color: #4CAF50;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+/* Section des détails */
+.details-section {
+    margin-bottom: 30px;
+}
+
+/* Titre des sections */
+.details-section h3 {
+    color: #333;
+    border-bottom: 2px solid #4CAF50;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Tableau des détails */
+.details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.details-table th,
+.details-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.details-table th {
+    background-color: #4CAF50;
+    color: white;
+    text-transform: uppercase;
+}
+
+.details-table td {
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Style du header */
+header {
+    background-color: #4CAF50; /* Vert */
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header nav {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .user-greeting {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+.logout-button {
+    background-color: #dc3545; /* Rouge */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.logout-button:hover {
+    background-color: #c82333; /* Rouge foncé */
+}
+
+/* Conteneur général pour les messages */
+.messages-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+/* Style général pour les alertes */
+.alert {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style pour les messages de succès */
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Style pour les messages d'erreur */
+.alert-error, .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Style pour les messages d'avertissement */
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+/* Style pour les messages d'information */
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+/* Animation pour l'apparition des messages */
+.alert {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.messages-container {
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+
+

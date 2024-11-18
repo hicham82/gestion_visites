@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @font-face {
+            font-family: 'Amiri';
+            src: url("{% static 'fonts/Amiri-Regular.ttf' %}") format("truetype");
+        }
+        body { font-family: 'Amiri', sans-serif; direction: rtl; }
+        .container { width: 80%; margin: auto; text-align: right; }
+        h1 { text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>دعوة للزيارة</h1>
+        <p>دعوة لزيارة الأستاذ {{ visite.enseignant_visite.nom_enseignant }}</p>
+        <p>تاريخ الزيارة: {{ visite.date_visite }}</p>
+        <p>وقت الزيارة: {{ visite.heure_visite }}</p>
+        <p>مركز الزيارة: {{ visite.centre_visite }}</p>
+        <p>المفتش: {{ visite.nom_inspecteur }}</p>
+        <p>أعضاء اللجنة:</p>
+        <ul>
+            <li>{{ visite.nom_premier_accompagnateur }} ({{ visite.etab_premier_accompagnateur }})</li>
+            <li>{{ visite.nom_deuxieme_accompagnateur }} ({{ visite.etab_deuxieme_accompagnateur }})</li>
+        </ul>
+    </div>
+</body>
+</html>
+

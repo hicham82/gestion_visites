@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Supprimer Visite{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+    <h2>Confirmer la Suppression</h2>
+    <p>Êtes-vous sûr de vouloir supprimer cette visite ?</p>
+    <p><strong>Enseignant :</strong> {{ visite.enseignant_visite.nom_enseignant }}</p>
+    <p><strong>Date de la visite :</strong> {{ visite.date_visite }}</p>
+    <p><strong>Inspecteur :</strong> {{ visite.nom_inspecteur }}</p>
+
+    <div class="delete-actions">
+        <form method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-delete">Supprimer</button>
+        </form>
+        <a href="{% url 'liste_visites' %}" class="btn btn-cancel">Annuler</a>
+    </div>
+</div>
+{% endblock %}

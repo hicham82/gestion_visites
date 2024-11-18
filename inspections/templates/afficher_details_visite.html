@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Détails de la Visite{% endblock %}
+
+{% block content %}
+<div class="details-container">
+    <h2>Détails de la Visite</h2>
+
+    <!-- Tableau pour les informations de la visite -->
+    <div class="details-section">
+        <h3>Visite</h3>
+        <table class="details-table">
+            <tr>
+                <th>Date</th>
+                <td>{{ visite.date_visite }}</td>
+            </tr>
+            <tr>
+                <th>Heure</th>
+                <td>{{ visite.heure_visite }}</td>
+            </tr>
+            <tr>
+                <th>Centre</th>
+                <td>{{ visite.centre_visite }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Tableau pour les informations de l'enseignant -->
+    <div class="details-section">
+        <h3>Enseignant</h3>
+        <table class="details-table">
+            <tr>
+                <th>Nom</th>
+                <td>{{ visite.enseignant_visite.nom_enseignant }}</td>
+            </tr>
+            <tr>
+                <th>PPR</th>
+                <td>{{ visite.enseignant_visite.som_enseignant }}</td>
+            </tr>
+            <tr>
+                <th>CIN</th>
+                <td>{{ visite.enseignant_visite.cin_enseignant }}</td>
+            </tr>
+            <tr>
+                <th>Cadre</th>
+                <td>{{ visite.enseignant_visite.cadre_enseignant }}</td>
+            </tr>
+            <tr>
+                <th>Établissement</th>
+                <td>{{ visite.enseignant_visite.etab_enseignant }}</td>
+            </tr>
+            <tr>
+                <th>Spécialité</th>
+                <td>{{ visite.enseignant_visite.specialite_enseignant }}</td>
+            </tr>
+            <tr>
+                <th>Cycle</th>
+                <td>{{ visite.enseignant_visite.cycle_enseignant }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Tableau pour les informations du jury -->
+    <div class="details-section">
+        <h3>Jury</h3>
+        <table class="details-table">
+            <tr>
+                <th>Inspecteur</th>
+                <td>{{ visite.nom_inspecteur }} ({{ visite.som_inspecteur }})</td>
+            </tr>
+            <tr>
+                <th>Premier Accompagnateur</th>
+                <td>{{ visite.nom_premier_accompagnateur }} ({{ visite.som_premier_accompagnateur }})</td>
+            </tr>
+            <tr>
+                <th>Établissement du Premier Accompagnateur</th>
+                <td>{{ visite.etab_premier_accompagnateur }}</td>
+            </tr>
+            <tr>
+                <th>Deuxième Accompagnateur</th>
+                <td>{{ visite.nom_deuxieme_accompagnateur }} ({{ visite.som_deuxieme_accompagnateur }})</td>
+            </tr>
+            <tr>
+                <th>Établissement du Deuxième Accompagnateur</th>
+                <td>{{ visite.etab_deuxieme_accompagnateur }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+
+
+

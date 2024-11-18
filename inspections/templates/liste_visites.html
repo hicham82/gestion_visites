@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block title %}Liste des Visites{% endblock %}
+
+{% block content %}
+
+   <div class="container">
+    <!-- Formulaire pour les filtres -->
+    <form method="get" action="{% url 'liste_visites' %}" class="filter-form">
+        {{ form.as_p }}
+        <button type="submit">Appliquer les filtres</button>
+    </form>
+
+    <!-- Formulaire pour la sélection et le téléchargement -->
+    <form method="post" action="{% url 'telecharger_visites_excel' %}">
+        {% csrf_token %}
+        <div class="table-container">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" onclick="toggleSelectAll(this)"></th>
+                        <th>Enseignant</th>
+                        <th>PPR</th>
+                        <th>Établissement</th>
+                        <th>Spécialité</th>
+                        <th>Inspecteur</th>
+                        <th>Date de la Visite</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+        {% for visite in page_obj %}
+        <tr>
+            <td><input type="checkbox" name="visite_ids" value="{{ visite.id }}"></td>
+            <td>{{ visite.enseignant_visite.nom_enseignant }}</td>
+            <td>{{ visite.enseignant_visite.som_enseignant }}</td>
+            <td>{{ visite.enseignant_visite.etab_enseignant }}</td>
+            <td>{{ visite.enseignant_visite.specialite_enseignant }}</td>
+            <td>{{ visite.nom_inspecteur }}</td>
+            <td>{{ visite.date_visite }}</td>
+            <td class="table-action-buttons">
+                <a href="{% url 'afficher_details_visite' visite.id %}" class="btn btn-info">Détails</a>
+                <a href="{% url 'modifier_visite' visite.id %}" class="btn-edit">Modifier</a>
+                <a href="{% url 'supprimer_visite' visite.id %}" class="btn-delete">Supprimer</a>
+
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="18">Aucune visite trouvée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+            </table>
+              <div>
+        <button type="submit" class="download-button">Télécharger la Sélection en Excel</button>
+        </form>
+
+        <!-- Liens de pagination -->
+    <div class="pagination">
+        <span>Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+        <div>
+            {% if page_obj.has_previous %}
+                <a href="?page=1">Première</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Précédente</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <strong>{{ num }}</strong>
+                {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
+                    <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Suivante</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Dernière</a>
+            {% endif %}
+          </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const checkboxes = document.querySelectorAll('input[name="visite_ids"]');
+        const selectAllCheckbox = document.querySelector('input[type="checkbox"][onclick="toggleSelectAll(this)"]');
+
+        // Charger les sélections sauvegardées
+        let savedSelections = JSON.parse(localStorage.getItem('selectedVisites')) || [];
+        console.log("Sélections chargées depuis localStorage:", savedSelections);
+
+        // Cocher les cases sélectionnées en fonction des données sauvegardées
+        checkboxes.forEach(checkbox => {
+            if (savedSelections.includes(checkbox.value)) {
+                checkbox.checked = true;
+            }
+        });
+
+        // Sauvegarder les sélections dans le localStorage quand on coche/décoche une case
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                savedSelections = JSON.parse(localStorage.getItem('selectedVisites')) || [];
+
+                if (checkbox.checked) {
+                    if (!savedSelections.includes(checkbox.value)) {
+                        savedSelections.push(checkbox.value);
+                    }
+                } else {
+                    savedSelections = savedSelections.filter(id => id !== checkbox.value);
+                }
+
+                console.log("Sauvegarde des sélections:", savedSelections);
+                localStorage.setItem('selectedVisites', JSON.stringify(savedSelections));
+            });
+        });
+
+        // Gérer la sélection/déselection de toutes les cases
+        selectAllCheckbox.addEventListener('change', function() {
+            const isChecked = selectAllCheckbox.checked;
+            savedSelections = JSON.parse(localStorage.getItem('selectedVisites')) || [];
+
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = isChecked;
+                if (isChecked) {
+                    if (!savedSelections.includes(checkbox.value)) {
+                        savedSelections.push(checkbox.value);
+                    }
+                } else {
+                    savedSelections = savedSelections.filter(id => id !== checkbox.value);
+                }
+            });
+
+            console.log("Sélection de toutes les cases:", savedSelections);
+            localStorage.setItem('selectedVisites', JSON.stringify(savedSelections));
+        });
+
+        // Avant de soumettre le formulaire de téléchargement, ajouter toutes les sélections au formulaire
+        document.querySelector('form[action="{% url 'telecharger_visites_excel' %}"]').addEventListener('submit', function(event) {
+            console.log("Suppression des sélections dans localStorage avant téléchargement");
+
+            // Supprimez tous les champs cachés existants pour éviter les doublons
+            document.querySelectorAll('input[type="hidden"][name="visite_ids"]').forEach(el => el.remove());
+
+            // Ajoutez chaque ID sélectionné à un champ caché dans le formulaire
+            savedSelections.forEach(id => {
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'visite_ids';
+                hiddenInput.value = id;
+                this.appendChild(hiddenInput);
+            });
+
+            // Vider le localStorage après soumission
+            localStorage.removeItem('selectedVisites');
+        });
+    });
+</script>
+
+
+{% endblock %}
+
+
+
+
+
+

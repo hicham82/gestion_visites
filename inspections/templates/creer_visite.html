@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}Ajouter Visite{% endblock %}
+
+{% block content %}
+<div class="form-container">
+
+    <h1>Formulaire de Création de Visite</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enregistrer la Visite</button>
+    </form>
+
+<div class="messages-container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#id_numero_somme_enseignant').on('blur', function () {
+            var numeroSomme = $(this).val();
+            if (numeroSomme) {
+                $.ajax({
+                    url: "{% url 'obtenir_nom_enseignant' %}",
+                    data: { 'numero_somme': numeroSomme },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.nom_enseignant) {
+                            $('#id_nom_enseignant').val(data.nom_enseignant);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Succès',
+                                text: `Nom de l'enseignant trouvé : ${data.nom_enseignant}`,
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur',
+                            text: 'Numéro de somme introuvable. Veuillez réessayer.',
+                        });
+                        $('#id_nom_enseignant').val('');
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+        $(document).ready(function() {
+        // Activer le sélecteur de date pour le champ `date_visite`
+        $('#id_date_visite').flatpickr({
+            dateFormat: "Y-m-d",     // Format de la date
+            minDate: "today"         // Empêche les dates antérieures à aujourd'hui
+        });
+
+        // Activer le sélecteur de temps pour le champ `heure_visite`
+        $('#id_heure_visite').flatpickr({
+            enableTime: true,        // Activer le temps
+            noCalendar: true,        // Désactiver le calendrier
+            dateFormat: "H:i",       // Format de l'heure (heures:minutes)
+            time_24hr: true          // Utiliser le format 24 heures
+        });
+    });
+</script>
+
+<script>
+                $(document).ready(function() {
+                $('form').on('submit', function(e) {
+                    var confirmed = confirm("Êtes-vous sûr de vouloir soumettre cette visite ?");
+                    if (!confirmed) {
+                        e.preventDefault(); // Annule l'envoi si l'utilisateur annule
+                    }
+                });
+            });
+        </script>
+
+    </div>
+{% endblock %}
+</body>
+</html>
+
+

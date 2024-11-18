@@ -1,0 +1,15 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Modifier Visite{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Modifier la Visite</h2>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enregistrer les Modifications</button>
+    </form>
+</div>
+{% endblock %}

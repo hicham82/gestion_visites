@@ -36,6 +36,8 @@ ALLOWED_HOSTS = ["hicham82.pythonanywhere.com", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
+    'colorfield',
+    'admin_interface',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',  # Ajout ici
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -117,6 +120,9 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+ADMIN_INTERFACE_SHOW_LANGUAGE_CHANGER = False
+
 
 
 # Static files (CSS, JavaScript, Images)

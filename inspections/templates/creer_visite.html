@@ -77,15 +77,29 @@
 </script>
 
 <script>
-                $(document).ready(function() {
-                $('form').on('submit', function(e) {
-                    var confirmed = confirm("Êtes-vous sûr de vouloir soumettre cette visite ?");
-                    if (!confirmed) {
-                        e.preventDefault(); // Annule l'envoi si l'utilisateur annule
-                    }
-                });
+    $(document).ready(function() {
+        $('form').on('submit', function(e) {
+            e.preventDefault(); // Empêche l'envoi du formulaire initialement
+            const form = this; // Stocke la référence au formulaire
+
+            Swal.fire({
+                title: 'Êtes-vous sûr de vouloir soumettre cette visite ?',
+                text: "Cette action enregistrera les informations saisies.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui, soumettre',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // Soumet le formulaire si l'utilisateur confirme
+                }
             });
-        </script>
+        });
+    });
+</script>
+
 
     </div>
 {% endblock %}

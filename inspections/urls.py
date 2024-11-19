@@ -4,6 +4,8 @@ from django.contrib.auth.views import LogoutView, LoginView  # Import de LogoutV
 from django.views.generic import RedirectView
 from .views import obtenir_nom_enseignant
 from django.http import HttpResponseRedirect
+from django.conf.urls.i18n import i18n_patterns
+from django.urls import include, path
 
 urlpatterns = [
     path('creer-visite/', views.creer_visite, name='creer_visite'),
@@ -18,5 +20,6 @@ urlpatterns = [
     path('obtenir-nom-enseignant/', obtenir_nom_enseignant, name='obtenir_nom_enseignant'),
     path('', RedirectView.as_view(pattern_name='login', permanent=False)),  # Redirige la racine vers la vue login
     path('contact/', lambda request: HttpResponseRedirect('/login/')),  # Redirige vers /login/
+    path('i18n/', include('django.conf.urls.i18n')), # URL pour gérer les langues (nécessaire pour supprimer l'avertissement)
 
 ]

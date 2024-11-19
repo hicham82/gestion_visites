@@ -21,50 +21,65 @@
             showConfirmButton: false
         });
     }
-</script>
-
-
+    </script>
 </head>
 <body>
    <header>
-    <h1>Application de Gestion des Visites</h1>
-    <nav>
-        {% if user.is_authenticated %}
-            <span class="user-greeting">Bonjour, {{ user.get_full_name|default:user.username }}</span> |
-            <a href="{% url 'liste_visites' %}">Liste des Visites</a> |
-            <a href="{% url 'creer_visite' %}">Ajouter Visite</a> |
-            <form action="{% url 'logout' %}" method="post" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit" class="logout-button">Déconnexion</button>
-            </form>
-        {% else %}
-            <span class="user-greeting">Bienvenue sur l'application</span>
-        {% endif %}
-    </nav>
-</header>
+       <h1>APPLICATION DE GESTION DES VISITES</h1>
+       <nav>
+           {% if user.is_authenticated %}
+               <span class="user-greeting">Bonjour, {{ user.get_full_name|default:user.username }}</span> |
+               <a href="{% url 'liste_visites' %}">Liste des Visites</a> |
+               <a href="{% url 'creer_visite' %}">Ajouter Visite</a> |
+               <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                   {% csrf_token %}
+                   <button type="submit" class="logout-button">Déconnexion</button>
+               </form>
+           {% else %}
+               <span class="user-greeting">Bienvenue sur l'application</span>
+           {% endif %}
+       </nav>
+   </header>
 
+   <!-- Bloc pour afficher les messages -->
+   {% if messages %}
+   <div class="messages">
+       {% for message in messages %}
+           <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+               {{ message }}
+           </div>
+       {% endfor %}
+   </div>
+   {% endif %}
 
+   <main>
+       {% block content %}{% endblock %}
+   </main>
 
+   <footer>
+       <p>&copy; 2024 Application Visites</p>
+   </footer>
 
+   <!-- Script pour sélectionner ou désélectionner toutes les cases -->
+   <script>
+       function toggleSelectAll(checkbox) {
+           const checkboxes = document.querySelectorAll('input[name="visite_ids"]');
+           checkboxes.forEach(cb => cb.checked = checkbox.checked);
+       }
+   </script>
 
-
-
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-
-    <footer>
-        <p>&copy; 2024 Application Visites</p>
-    </footer>
-
-  <!-- Script pour sélectionner ou désélectionner toutes les cases -->
-    <script>
-        function toggleSelectAll(checkbox) {
-            const checkboxes = document.querySelectorAll('input[name="visite_ids"]');
-            checkboxes.forEach(cb => cb.checked = checkbox.checked);
-        }
-    </script>
-
-</>
+   <!-- Script pour ajouter une disparition automatique des messages -->
+   <script>
+       document.addEventListener('DOMContentLoaded', function () {
+           const messages = document.querySelectorAll('.message');
+           messages.forEach(function (message) {
+               setTimeout(() => {
+                   message.style.animation = 'fadeOut 0.5s ease-in-out forwards';
+               }, 3000); // Attendre 3 secondes avant de commencer à disparaître
+           });
+       });
+   </script>
+</body>
 </html>
+
 

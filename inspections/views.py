@@ -1,20 +1,14 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import redirect, get_object_or_404
-from django.http import JsonResponse, HttpResponse
-from django.template.loader import render_to_string
+from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 import pandas as pd
-from .forms import FiltreVisitesForm
-from .models import Personnel, Visite
-from django.shortcuts import render
+from .models import  Visite
 from .forms import VisiteForm
 from .models import Personnel
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.http import HttpResponse
-from django.http import HttpResponse
-import os
-from django.conf import settings
 from .forms import FiltreVisitesForm
 from django.contrib import messages
 
@@ -101,15 +95,21 @@ def liste_visites(request):
                 Q(som_inspecteur__icontains=nom_inspecteur)
             )
 
-    # Pagination
-    paginator = Paginator(visites, 10)  # Nombre de visites par page
-    page_number = request.GET.get('page')  # Récupérer le numéro de page depuis l'URL
-    page_obj = paginator.get_page(page_number)  # Obtenir l'objet de la page
+    # Pagination avec conservation des paramètres
+    paginator = Paginator(visites, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    # Conserver les paramètres de la requête
+    query_params = request.GET.copy()
+    if 'page' in query_params:
+        query_params.pop('page')
 
     user_has_full_control = request.user.has_perm('inspections.change_visite')
     return render(request, 'liste_visites.html', {
         'form': form,
-        'page_obj': page_obj,  # Passe page_obj au template
+        'page_obj': page_obj,
+        'query_params': query_params,
         'user_has_full_control': user_has_full_control
     })
 

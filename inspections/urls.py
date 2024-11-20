@@ -1,10 +1,8 @@
-from django.urls import path
 from . import views
 from django.contrib.auth.views import LogoutView, LoginView  # Import de LogoutView
 from django.views.generic import RedirectView
 from .views import obtenir_nom_enseignant
 from django.http import HttpResponseRedirect
-from django.conf.urls.i18n import i18n_patterns
 from django.urls import include, path
 
 urlpatterns = [

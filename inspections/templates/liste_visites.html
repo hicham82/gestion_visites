@@ -59,27 +59,27 @@
 
         <!-- Liens de pagination -->
     <div class="pagination">
-        <span>Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
-        <div>
-            {% if page_obj.has_previous %}
-                <a href="?page=1">Première</a>
-                <a href="?page={{ page_obj.previous_page_number }}">Précédente</a>
-            {% endif %}
+    <span>Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+    <div>
+        {% if page_obj.has_previous %}
+            <a href="?page=1&{{ query_params.urlencode }}">Première</a>
+            <a href="?page={{ page_obj.previous_page_number }}&{{ query_params.urlencode }}">Précédente</a>
+        {% endif %}
 
-            {% for num in page_obj.paginator.page_range %}
-                {% if page_obj.number == num %}
-                    <strong>{{ num }}</strong>
-                {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
-                    <a href="?page={{ num }}">{{ num }}</a>
-                {% endif %}
-            {% endfor %}
-
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">Suivante</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">Dernière</a>
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <strong>{{ num }}</strong>
+            {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
+                <a href="?page={{ num }}&{{ query_params.urlencode }}">{{ num }}</a>
             {% endif %}
-          </div>
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&{{ query_params.urlencode }}">Suivante</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}&{{ query_params.urlencode }}">Dernière</a>
+        {% endif %}
     </div>
+</div>
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {

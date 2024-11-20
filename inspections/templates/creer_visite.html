@@ -5,12 +5,12 @@
 {% block content %}
 <div class="form-container">
 
-    <h1>استمارة الزيارة</h1>
+    <h1>Formulaire de la visite</h1>
 
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">تأكيد</button>
+        <button type="submit">Enregistrer la visite</button>
     </form>
 
 <div class="messages-container">

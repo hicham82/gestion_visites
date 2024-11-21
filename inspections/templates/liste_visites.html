@@ -40,11 +40,15 @@
             <td>{{ visite.date_visite }}</td>
             <td class="table-action-buttons">
                 <a href="{% url 'afficher_details_visite' visite.id %}" class="btn btn-info">Détails</a>
-                <a href="{% url 'modifier_visite' visite.id %}" class="btn-edit">Modifier</a>
-                <a href="{% url 'supprimer_visite' visite.id %}" class="btn-delete">Supprimer</a>
-
+                {% if user_has_full_control %}
+                    <a href="{% url 'modifier_visite' visite.id %}" class="btn-edit">Modifier</a>
+                    <a href="{% url 'supprimer_visite' visite.id %}" class="btn-delete">Supprimer</a>
+                {% endif %}
+                {% if can_print %}
+                    <a href="{% url 'print_visite' visite.id %}" class="btn-print">Imprimer</a>
+                {% endif %}
             </td>
-        </tr>
+
         {% empty %}
         <tr>
             <td colspan="18">Aucune visite trouvée.</td>

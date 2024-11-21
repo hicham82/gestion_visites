@@ -4,25 +4,44 @@
 
 {% block content %}
 <div class="form-container">
-
     <h1>Formulaire de la visite</h1>
 
+    <!-- Formulaire -->
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Enregistrer la visite</button>
-    </form>
 
-<div class="messages-container">
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-                {{ message }}
+        <!-- Parcourir tous les champs du formulaire et afficher leurs erreurs -->
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}
+                    {% if field.field.required %}
+                        <span style="color: red;">*</span> <!-- Indicateur pour les champs obligatoires -->
+                    {% endif %}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="error" style="color: red;">{{ field.errors|striptags }}</div>
+                {% endif %}
             </div>
         {% endfor %}
-    {% endif %}
+
+        <!-- Bouton de soumission -->
+        <button type="submit" class="btn btn-primary">Enregistrer la visite</button>
+    </form>
+
+    <!-- Affichage des messages -->
+    <div class="messages-container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
 </div>
 
+<!-- Script pour le champ "Numéro de somme enseignant" -->
 <script>
     $(document).ready(function () {
         $('#id_numero_somme_enseignant').on('blur', function () {
@@ -58,8 +77,9 @@
     });
 </script>
 
+<!-- Flatpickr pour le sélecteur de date et d'heure -->
 <script>
-        $(document).ready(function() {
+    $(document).ready(function() {
         // Activer le sélecteur de date pour le champ `date_visite`
         $('#id_date_visite').flatpickr({
             dateFormat: "Y-m-d",     // Format de la date
@@ -76,6 +96,7 @@
     });
 </script>
 
+<!-- Confirmation avant soumission -->
 <script>
     $(document).ready(function() {
         $('form').on('submit', function(e) {
@@ -100,10 +121,8 @@
     });
 </script>
 
-
-    </div>
+</div>
 {% endblock %}
-</body>
-</html>
+
 
 

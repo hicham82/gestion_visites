@@ -834,6 +834,83 @@ table th:hover {
     color: #d32f2f; /* Rouge */
     border: 1px solid #ffcdd2;
 }
+/* Style général pour le bouton "Imprimer" */
+.btn-print {
+    background-color: #4CAF50; /* Couleur de fond verte */
+    color: white; /* Couleur du texte en blanc */
+    padding: 10px 15px; /* Espacement interne */
+    text-decoration: none; /* Suppression de la soulignure */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 14px; /* Taille du texte */
+    border: none; /* Suppression de la bordure */
+    cursor: pointer; /* Changement du curseur au survol */
+    display: inline-block; /* Pour le positionnement */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Effet de transition */
+}
 
+/* Style au survol du bouton */
+.btn-print:hover {
+    background-color: #45a049; /* Couleur légèrement plus foncée */
+    transform: scale(1.05); /* Légère mise en avant */
+}
 
+/* Style lorsque le bouton est cliqué */
+.btn-print:active {
+    background-color: #397d3f; /* Couleur encore plus foncée */
+    transform: scale(0.95); /* Légère réduction pour effet de clic */
+}
 
+/* Style pour un bouton désactivé */
+.btn-print:disabled {
+    background-color: #4CAF50 !important; /* Même couleur que le bouton actif */
+    color: white !important; /* Couleur du texte */
+    opacity: 0.5; /* Transparence pour indiquer qu'il est désactivé */
+    cursor: not-allowed; /* Curseur indiquant l'état désactivé */
+}
+/* Applique un style au message d'erreur */
+input:required:invalid {
+    border: 2px solid red; /* Bordure rouge */
+    background-color: #ffe6e6; /* Fond légèrement rouge */
+}
+
+input:required:invalid::placeholder {
+    color: red; /* Placeholder en rouge pour indiquer l'erreur */
+}
+
+/* Personnaliser la bulle de message d'erreur */
+input:required:invalid:focus::after {
+    content: "Veuillez remplir ce champ.";
+    position: absolute;
+    background-color: #ffdddd;
+    color: #ff0000;
+    font-size: 12px;
+    border: 1px solid red;
+    padding: 5px;
+    border-radius: 5px;
+    top: 100%; /* Juste en dessous du champ */
+    left: 0;
+    z-index: 10;
+}
+
+/* Style général des champs au focus */
+input:focus {
+    outline: none;
+    border: 2px solid #00bfff; /* Bordure bleue au focus */
+    background-color: #f0f8ff; /* Fond bleu clair au focus */
+}
+/* Limitez la largeur des graphiques */
+canvas {
+    max-width: 600px; /* Limite à 600px */
+    margin: 0 auto; /* Centrer les graphiques */
+}
+/* Styles des graphiques */
+canvas {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Centrage des titres */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}

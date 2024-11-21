@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}Statistiques des Visites{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 style="text-align: center; color: #2c3e50;">📊 Statistiques des Visites</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3 style="text-align: center; color: #e67e22;">Visites par Mois</h3>
+            <canvas id="visitesParMois"></canvas>
+        </div>
+        <div class="col-md-6">
+            <h3 style="text-align: center; color: #3498db;">Visites par Inspecteur</h3>
+            <canvas id="visitesParInspecteur"></canvas>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-md-12">
+            <h3 style="text-align: center; color: #9b59b6;">Visites par Spécialité</h3>
+            <canvas id="visitesParSpecialite"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Graphique des visites par mois
+    const visitesParMoisCtx = document.getElementById('visitesParMois').getContext('2d');
+    new Chart(visitesParMoisCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ labels_mois|safe }},
+            datasets: [{
+                label: 'Nombre de visites par mois',
+                data: {{ data_mois|safe }},
+                backgroundColor: 'rgba(46, 204, 113, 0.7)',
+                borderColor: 'rgba(46, 204, 113, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true },
+                title: { display: true, text: 'Visites par Mois' }
+            }
+        }
+    });
+
+    // Graphique des visites par inspecteur
+    const visitesParInspecteurCtx = document.getElementById('visitesParInspecteur').getContext('2d');
+    new Chart(visitesParInspecteurCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ labels_inspecteur|safe }},
+            datasets: [{
+                label: 'Nombre de visites par inspecteur',
+                data: {{ data_inspecteur|safe }},
+                backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                borderColor: 'rgba(52, 152, 219, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true },
+                title: { display: true, text: 'Visites par Inspecteur' }
+            }
+        }
+    });
+
+    // Graphique des visites par spécialité
+    const visitesParSpecialiteCtx = document.getElementById('visitesParSpecialite').getContext('2d');
+    new Chart(visitesParSpecialiteCtx, {
+        type: 'pie',
+        data: {
+            labels: {{ labels_specialite|safe }},
+            datasets: [{
+                label: 'Nombre de visites par spécialité',
+                data: {{ data_specialite|safe }},
+                backgroundColor: [
+                    '#e74c3c', '#8e44ad', '#3498db', '#2ecc71', '#f1c40f',
+                    '#e67e22', '#1abc9c', '#9b59b6', '#34495e', '#95a5a6'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true },
+                title: { display: true, text: 'Visites par Spécialité' }
+            }
+        }
+    });
+</script>
+{% endblock %}
+
+
+
+
+

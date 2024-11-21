@@ -9,10 +9,23 @@ from .models import Personnel
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.http import HttpResponse
-from .forms import FiltreVisitesForm
+from .forms import VisiteForm, FiltreVisitesForm
 from django.contrib import messages
-
-
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase import pdfmetrics
+from bidi.algorithm import get_display
+from arabic_reshaper import reshape
+from io import BytesIO
+import zipfile
+import os
+from django.http import HttpResponse
+from django.conf import settings
+from django.shortcuts import render
+from django.db.models import Count, Func, Value
+from django.db.models.functions import ExtractMonth, ExtractYear
+from calendar import month_name  # Pour récupérer les noms des mois
 
 
 
@@ -27,31 +40,33 @@ def creer_visite(request):
         if form.is_valid():
             numero_somme = form.cleaned_data['numero_somme_enseignant']
             try:
-                # Rechercher l'enseignant dans le modèle Personnel
+                # Vérifie si l'enseignant existe
                 enseignant = Personnel.objects.get(som_enseignant=numero_somme)
 
-                # Vérifier s'il existe déjà une visite pour cet enseignant
-                ancienne_visite = Visite.objects.filter(enseignant_visite=enseignant, status='Programmée').first()
-
-                # Annuler l'ancienne visite, s'il y en a une
+                # Annule une ancienne visite si elle existe
+                ancienne_visite = Visite.objects.filter(
+                    enseignant_visite=enseignant, status='Programmée'
+                ).first()
                 if ancienne_visite:
                     ancienne_visite.status = 'Annulée'
                     ancienne_visite.save()
                     messages.info(request, f"L'ancienne visite pour {enseignant.nom_enseignant} a été annulée.")
 
-                # Créer et sauvegarder la nouvelle visite
+                # Crée une nouvelle visite
                 nouvelle_visite = form.save(commit=False)
                 nouvelle_visite.enseignant_visite = enseignant
-                nouvelle_visite.status = 'Programmée'  # La nouvelle visite est toujours "Programmée"
+                nouvelle_visite.status = 'Programmée'
                 nouvelle_visite.save()
 
                 messages.success(request, f"La visite pour {enseignant.nom_enseignant} a été programmée avec succès !")
                 return redirect('confirmation_visite', visite_id=nouvelle_visite.id)
 
             except Personnel.DoesNotExist:
-                # Ajouter un message d'erreur si le numéro de somme est invalide
                 form.add_error('numero_somme_enseignant', 'Numéro de somme introuvable')
-                messages.error(request, 'Le numéro de somme saisi est introuvable.')
+        else:
+            messages.error(request, 'Veuillez remplir tous les champs obligatoires.')
+
+    return render(request, 'creer_visite.html', {'form': form})
 
     return render(request, 'creer_visite.html', {'form': form})
 def obtenir_nom_enseignant(request):
@@ -63,12 +78,9 @@ def obtenir_nom_enseignant(request):
         return JsonResponse({'nom_enseignant': enseignant.nom_enseignant})
     except Personnel.DoesNotExist:
         return JsonResponse({'error': 'Numéro de somme introuvable'}, status=404)
-
-
 def confirmation_visite(request, visite_id):
     visite = get_object_or_404(Visite, pk=visite_id)
     return render(request, 'confirmation_visite.html', {'visite': visite})
-
 @login_required
 def liste_visites(request):
     form = FiltreVisitesForm(request.GET or None)
@@ -105,24 +117,30 @@ def liste_visites(request):
     if 'page' in query_params:
         query_params.pop('page')
 
+    # Gestion des permissions
     user_has_full_control = request.user.has_perm('inspections.change_visite')
+    can_print = request.user.has_perm('inspections.print_visite')
+
+    # Retourne le contexte au template
     return render(request, 'liste_visites.html', {
         'form': form,
         'page_obj': page_obj,
         'query_params': query_params,
-        'user_has_full_control': user_has_full_control
+        'user_has_full_control': user_has_full_control,
+        'can_print': can_print,
     })
-
 @permission_required('inspections.change_visite', raise_exception=True)
 def modifier_visite(request, id):
-    visite = get_object_or_404(Visite, id=id)
+    visite = get_object_or_404(Visite, id=id)  # Charger la visite concernée
     if request.method == 'POST':
+        # Formulaire avec données soumises (et instance existante)
         form = VisiteForm(request.POST, instance=visite)
         if form.is_valid():
-            form.save()
-            return redirect('liste_visites')  # Redirige vers la liste des visites après modification
+            form.save()  # Sauvegarder les modifications
+            return redirect('liste_visites')  # Redirection après modification
     else:
-        form = VisiteForm(instance=visite)  # Formulaire pré-rempli avec les données existantes
+        # Formulaire pré-rempli pour modification
+        form = VisiteForm(instance=visite)
     return render(request, 'modifier_visite.html', {'form': form})
 
 @permission_required('inspections.delete_visite', raise_exception=True)
@@ -132,8 +150,6 @@ def supprimer_visite(request, id):
         visite.delete()  # Supprime la visite de la base de données
         return redirect('liste_visites')  # Redirige vers la liste des visites après suppression
     return render(request, 'supprimer_visite.html', {'visite': visite})
-
-
 @require_POST
 def telecharger_visites_excel(request):
     # Récupère les IDs des visites sélectionnées
@@ -175,14 +191,101 @@ def telecharger_visites_excel(request):
     df.to_excel(response, index=False)
 
     return response
-
-
 def afficher_details_visite(request, visite_id):
     visite = get_object_or_404(Visite, id=visite_id)
     return render(request, 'afficher_details_visite.html', {'visite': visite})
 
+# Helper function to draw Arabic text
+def draw_arabic_text(c, x, y, text):
+    reshaped_text = reshape(text)  # Reshape Arabic for correct display
+    bidi_text = get_display(reshaped_text)  # Apply BiDi algorithm for RTL alignment
+    c.drawRightString(x, y, bidi_text)  # Align text to the right
+
+# Function to generate and download convocations
+@permission_required('inspections.print_visite', raise_exception=True)
+def print_visite(request, visite_id):
+    visite = get_object_or_404(Visite, id=visite_id)
+
+    # Register Arabic font
+    font_path = os.path.join(settings.BASE_DIR, 'static/fonts/Amiri-Regular.ttf')
+    pdfmetrics.registerFont(TTFont('Amiri', font_path))
+
+    # Generate PDF
+    buffer = BytesIO()
+    c = canvas.Canvas(buffer, pagesize=A4)
+    c.setFont("Amiri", 14)
+
+    # Example Header and Footer (you can customize this as needed)
+    header_path = os.path.join(settings.BASE_DIR, 'static/images/header.jpg')
+    footer_path = os.path.join(settings.BASE_DIR, 'static/images/footer.jpg')
+    if os.path.exists(header_path):
+        c.drawImage(header_path, 0, 780, width=595, height=60)  # Adjust position
+    if os.path.exists(footer_path):
+        c.drawImage(footer_path, 150, 10, width=300, height=50)
+
+    # Add Arabic text (example content, customize as needed)
+    draw_arabic_text(c, 550, 750, f"رقم الزيارة: {visite.id}")
+    draw_arabic_text(c, 550, 720, f"اسم الأستاذ: {visite.enseignant_visite.nom_enseignant}")
+    draw_arabic_text(c, 550, 690, f"رقم التأجير: {visite.enseignant_visite.som_enseignant}")
+    draw_arabic_text(c, 550, 660, f"تاريخ الزيارة: {visite.date_visite}")
+    draw_arabic_text(c, 550, 630, f"المكان: {visite.centre_visite}")
+
+    # Finalize PDF
+    c.save()
+    buffer.seek(0)
+    return HttpResponse(buffer, content_type='application/pdf')
+
 from django.shortcuts import render
+from django.db.models import Count
+from .models import Visite
 
+def statistiques(request):
+    visites_par_mois = (
+        Visite.objects.filter(status="Programmée")
+        .annotate(month=ExtractMonth("date_visite"))
+        .values("month")
+        .annotate(total=Count("id"))
+        .order_by("month")
+    )
 
+    visites_par_inspecteur = (
+        Visite.objects.filter(status="Programmée")
+        .values("nom_inspecteur")
+        .annotate(total=Count("id"))
+        .order_by("-total")
+    )
+
+    visites_par_specialite = (
+        Visite.objects.filter(status="Programmée")
+        .values("enseignant_visite__specialite_enseignant")
+        .annotate(total=Count("id"))
+        .order_by("-total")
+    )
+
+    # Convertir les mois en noms de mois
+    labels_mois = [
+        month_name[data["month"]] if data["month"] else "Inconnu"
+        for data in visites_par_mois
+    ]
+    data_mois = [data["total"] for data in visites_par_mois]
+
+    labels_inspecteur = [data["nom_inspecteur"] for data in visites_par_inspecteur]
+    data_inspecteur = [data["total"] for data in visites_par_inspecteur]
+
+    labels_specialite = [
+        data["enseignant_visite__specialite_enseignant"]
+        for data in visites_par_specialite
+    ]
+    data_specialite = [data["total"] for data in visites_par_specialite]
+
+    context = {
+        "labels_mois": labels_mois,
+        "data_mois": data_mois,
+        "labels_inspecteur": labels_inspecteur,
+        "data_inspecteur": data_inspecteur,
+        "labels_specialite": labels_specialite,
+        "data_specialite": data_specialite,
+    }
+    return render(request, "statistiques.html", context)
 
 

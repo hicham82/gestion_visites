@@ -41,3 +41,8 @@ class Visite(models.Model):
 
     def __str__(self):
         return f"Visite de {self.enseignant_visite.nom_enseignant} par {self.nom_inspecteur} le {self.date_visite}"
+
+    class Meta:
+        permissions = [
+            ("print_visite", "Can print visite"),
+        ]

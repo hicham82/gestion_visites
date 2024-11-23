@@ -1,0 +1,274 @@
+body {
+    font-family: 'Amiri', serif; /* Charge une police adaptée à l'arabe */
+    direction: rtl;
+    text-align: right;
+    margin: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.page-break {
+    page-break-after: always;
+}
+
+img {
+    width: 100%;
+}
+body {
+    margin: 40px;
+}
+.section {
+    margin-bottom: 30px;
+}
+@font-face {
+    font-family: 'Amiri';
+    src: url("{% static 'fonts/Amiri-Regular.ttf' %}");
+}
+body {
+    font-family: 'Amiri', serif;
+}
+body {
+    font-family: 'Amiri', serif;
+    direction: rtl;
+    text-align: right;
+    margin: 0; /* Supprime les marges par défaut */
+    padding: 0;
+    position: relative;
+    height: 100%; /* Assure que la page utilise toute la hauteur */
+}
+
+header {
+    position: fixed;
+    top: 0; /* Positionne en haut de la page */
+    width: 100%;
+    z-index: 1; /* Assure que le header reste au-dessus */
+}
+
+footer {
+    position: fixed;
+    bottom: 0; /* Positionne en bas de la page */
+    width: 100%;
+    z-index: 1; /* Assure que le footer reste au-dessus */
+}
+
+main {
+    margin-top: 100px; /* Laisse de l'espace sous le header */
+    margin-bottom: 100px; /* Laisse de l'espace au-dessus du footer */
+}
+main {
+    margin-top: 120px;
+    margin-bottom: 120px;
+}
+header img, footer img {
+    width: 100%; /* Ajuste à la largeur de la page */
+    height: auto; /* Garde les proportions */
+}
+<style>
+    body {
+        font-family: 'Amiri', serif;
+        direction: rtl;
+        text-align: right;
+        margin: 0;
+        padding: 0;
+        position: relative;
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+    main {
+        margin-top: 120px; /* Espace sous le header */
+        margin-bottom: 120px; /* Espace au-dessus du footer */
+    }
+
+    .page-break {
+        page-break-after: always;
+    }
+
+    .section {
+        margin: 20px 40px;
+    }
+</style>
+main {
+    margin-top: 140px; /* Espace sous le header */
+    margin-bottom: 120px; /* Espace au-dessus du footer */
+}
+
+h1 {
+    margin-top: 20px; /* Ajoute un espace en dessous du header */
+    font-size: 24px; /* Ajustez la taille si nécessaire */
+    text-align: center;
+    color: #2c3e50;
+}
+header img {
+    width: 100%;
+    height: auto;
+    max-height: 100px; /* Limite la hauteur de l'image */
+}
+header {
+    position: fixed;
+    top: 0; /* Positionne le header tout en haut */
+    width: 100%; /* Assure que le header prend toute la largeur */
+    margin: 0; /* Supprime les marges internes/externes */
+    padding: 0; /* Supprime les espacements internes */
+    z-index: 1; /* Assure que le header reste visible */
+}
+
+header img {
+    width: 100%; /* L’image s’ajuste à la largeur de la page */
+    height: auto; /* Conserve les proportions de l’image */
+    display: block; /* Supprime les espaces blancs ajoutés par les images inline */
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+html {
+    margin: 0;
+    padding: 0;
+}
+main {
+    margin-top: 100px; /* Diminue l’espace sous le header */
+    margin-bottom: 120px; /* Laisse de l’espace pour le footer */
+}
+@page {
+    margin: 0; /* Supprime toutes les marges par défaut de la page PDF */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+header {
+    position: fixed;
+    top: 0; /* Positionne le header tout en haut */
+    width: 100%;
+    height: auto;
+    z-index: 1;
+    margin: 0; /* Supprime les marges internes/externes */
+    padding: 0; /* Supprime les espacements internes */
+}
+
+footer {
+    position: fixed;
+    bottom: 0; /* Positionne le footer tout en bas */
+    width: 100%;
+    height: auto;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+}
+
+header img, footer img {
+    width: 100%; /* Ajuste à la largeur de la page */
+    height: auto; /* Conserve les proportions */
+    display: block; /* Supprime l'espace blanc autour de l'image */
+}
+.centered-section {
+    display: flex; /* Utilise Flexbox pour aligner les éléments */
+    flex-direction: column; /* Empile les éléments verticalement */
+    justify-content: center; /* Centre verticalement */
+    align-items: center; /* Centre horizontalement */
+    height: 100%; /* Prend toute la hauteur disponible */
+    text-align: center; /* Centre le texte */
+    font-size: 24px; /* Taille du texte uniforme (peut être ajustée) */
+    color: #2c3e50; /* Couleur du texte */
+}
+
+.centered-section h1 {
+    margin: 0 0 20px; /* Ajoute un espace entre le titre et les paragraphes */
+    margin: 5px 0; /* Ajoute un petit espacement entre les lignes */
+    font-size: 20px; /* Taille des paragraphes */
+
+
+}
+.reference-line {
+    display: flex; /* Utilise Flexbox pour l'alignement */
+    justify-content: space-between; /* Espace entre les deux textes */
+    margin: 20px 40px; /* Marges autour de la ligne */
+    font-size: 16px; /* Taille du texte */
+    direction: rtl; /* Alignement pour l'arabe */
+}
+
+.reference-line .right {
+    flex: 1;
+    text-align: right; /* Aligne "رقم:" à droite */
+    padding-left: 50px; /* Ajoute un petit espace à gauche */
+}
+
+.reference-line .left {
+    flex: 1;
+    text-align: left; /* Positionne légèrement à gauche*/
+    padding-left: 100px;
+}
+.subject-reference {
+    margin: 20px 40px; /* Espacement autour de la section */
+    font-size: 18px; /* Taille du texte */
+    direction: rtl; /* Texte en arabe */
+    line-height: 1.8; /* Interligne pour améliorer la lisibilité */
+}
+
+.reference-section {
+    display: flex; /* Permet d’aligner les éléments sur une seule ligne */
+    align-items: flex-start; /* Aligne les éléments en haut */
+    margin-top: 10px; /* Ajoute un peu d’espace au-dessus de la ligne */
+}
+
+.reference-title {
+    flex: 0 0 120px; /* Largeur fixe pour "المرجع:" */
+    text-align: right; /* Aligne à droite pour l’arabe */
+    font-weight: bold;
+}
+
+.reference-content {
+    flex: 1; /* Prend tout l’espace restant */
+    text-align: right; /* Aligne à droite le contenu arabe */
+}
+
+.reference-content p {
+    margin: 5px 0; /* Espace entre les lignes de contenu */
+}
+.salutation {
+    text-align: center; /* Centre le texte horizontalement */
+    font-size: 18px; /* Taille du texte */
+    font-style: italic; /* Ajoute un style distinct */
+    font-weight: bold; /* Rend le texte en gras */
+    color: #2c3e50; /* Harmonise la couleur avec le reste de la convocation */
+    margin: 20px 0; /* Ajoute un espacement au-dessus et en dessous */
+}
+.convocation-body {
+    margin: 20px 40px; /* Espacement autour de la section */
+    font-size: 18px; /* Taille du texte */
+    line-height: 1.8; /* Interligne pour améliorer la lisibilité */
+    direction: rtl; /* Alignement du texte en arabe */
+    text-align: justify; /* Justifie le texte pour une présentation propre */
+}
+
+.convocation-body p {
+    margin-bottom: 15px; /* Espacement entre les paragraphes */
+}
+
+.indent {
+    display: inline-block; /* Permet de réserver de l'espace */
+    width: 20px; /* Largeur de l'espace simulant l'indentation */
+    height: 1px; /* Invisible mais occupe l'espace */
+}

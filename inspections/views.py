@@ -26,6 +26,14 @@ from django.shortcuts import render
 from django.db.models import Count, Func, Value
 from django.db.models.functions import ExtractMonth, ExtractYear
 from calendar import month_name  # Pour récupérer les noms des mois
+from django.template.loader import render_to_string
+from weasyprint import HTML
+from django.http import HttpResponse
+from django.conf import settings
+from babel.dates import format_date, get_day_names
+import locale
+from babel.dates import format_date
+
 
 
 
@@ -206,38 +214,41 @@ def draw_arabic_text(c, x, y, text):
 def print_visite(request, visite_id):
     visite = get_object_or_404(Visite, id=visite_id)
 
-    # Register Arabic font
-    font_path = os.path.join(settings.BASE_DIR, 'static/fonts/Amiri-Regular.ttf')
-    pdfmetrics.registerFont(TTFont('Amiri', font_path))
+    # Conversion de la date en arabe
+    day_name_ar = format_date(visite.date_visite, "EEEE", locale='ar')
+    date_ar = visite.date_visite.strftime("%Y/%m/%d")
+    date_visite_ar = f"{day_name_ar} {date_ar}"
 
-    # Generate PDF
-    buffer = BytesIO()
-    c = canvas.Canvas(buffer, pagesize=A4)
-    c.setFont("Amiri", 14)
+    # Contexte pour le template HTML
+    context = {
+        'visite': visite,
+        'enseignant': visite.enseignant_visite,
+        'accompagnateurs': [
+            {
+                'nom': visite.nom_premier_accompagnateur,
+                'som': visite.som_premier_accompagnateur,
+                'etab': visite.etab_premier_accompagnateur,
+            },
+            {
+                'nom': visite.nom_deuxieme_accompagnateur,
+                'som': visite.som_deuxieme_accompagnateur,
+                'etab': visite.etab_deuxieme_accompagnateur,
+            },
+        ],
+        'date_visite_ar': date_visite_ar,  # Date au format arabe
+    }
 
-    # Example Header and Footer (you can customize this as needed)
-    header_path = os.path.join(settings.BASE_DIR, 'static/images/header.jpg')
-    footer_path = os.path.join(settings.BASE_DIR, 'static/images/footer.jpg')
-    if os.path.exists(header_path):
-        c.drawImage(header_path, 0, 780, width=595, height=60)  # Adjust position
-    if os.path.exists(footer_path):
-        c.drawImage(footer_path, 150, 10, width=300, height=50)
+    # Génération du contenu HTML
+    html_string = render_to_string('convocation.html', context)
 
-    # Add Arabic text (example content, customize as needed)
-    draw_arabic_text(c, 550, 750, f"رقم الزيارة: {visite.id}")
-    draw_arabic_text(c, 550, 720, f"اسم الأستاذ: {visite.enseignant_visite.nom_enseignant}")
-    draw_arabic_text(c, 550, 690, f"رقم التأجير: {visite.enseignant_visite.som_enseignant}")
-    draw_arabic_text(c, 550, 660, f"تاريخ الزيارة: {visite.date_visite}")
-    draw_arabic_text(c, 550, 630, f"المكان: {visite.centre_visite}")
+    # Utilisation de base_url pour charger les fichiers statiques
+    html = HTML(string=html_string, base_url=request.build_absolute_uri('/'))
+    pdf = html.write_pdf()
 
-    # Finalize PDF
-    c.save()
-    buffer.seek(0)
-    return HttpResponse(buffer, content_type='application/pdf')
-
-from django.shortcuts import render
-from django.db.models import Count
-from .models import Visite
+    # Retourne le PDF généré
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = f'inline; filename="convocation_{visite.id}.pdf"'
+    return response
 
 def statistiques(request):
     visites_par_mois = (

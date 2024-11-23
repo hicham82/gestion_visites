@@ -1,0 +1,278 @@
+body {
+    font-family: 'Amiri', serif; /* Charge une police adaptée à l'arabe */
+    direction: rtl;
+    text-align: right;
+    margin: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.page-break {
+    page-break-after: always;
+}
+
+
+body {
+    margin: 40px;
+}
+.section {
+    margin-bottom: 30px;
+}
+@font-face {
+    font-family: 'Amiri';
+    src: url("{% static 'fonts/Amiri-Regular.ttf' %}");
+}
+body {
+    font-family: 'Amiri', serif;
+}
+body {
+    font-family: 'Amiri', serif;
+    direction: rtl;
+    text-align: right;
+    margin: 0; /* Supprime les marges par défaut */
+    padding: 0;
+    position: relative;
+    height: 100%; /* Assure que la page utilise toute la hauteur */
+}
+
+
+main {
+    margin-top: 100px; /* Laisse de l'espace sous le header */
+    margin-bottom: 100px; /* Laisse de l'espace au-dessus du footer */
+}
+main {
+    margin-top: 120px;
+    margin-bottom: 120px;
+}
+
+<style>
+    body {
+        font-family: 'Amiri', serif;
+        direction: rtl;
+        text-align: right;
+        margin: 0;
+        padding: 0;
+        position: relative;
+    }
+
+
+    main {
+        margin-top: 120px; /* Espace sous le header */
+        margin-bottom: 120px; /* Espace au-dessus du footer */
+    }
+
+    .page-break {
+        page-break-after: always;
+    }
+
+    .section {
+        margin: 20px 40px;
+    }
+</style>
+main {
+    margin-top: 140px; /* Espace sous le header */
+    margin-bottom: 120px; /* Espace au-dessus du footer */
+}
+
+h1 {
+    margin-top: 20px; /* Ajoute un espace en dessous du header */
+    font-size: 24px; /* Ajustez la taille si nécessaire */
+    text-align: center;
+    color: #2c3e50;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+html {
+    margin: 0;
+    padding: 0;
+}
+main {
+    margin-top: 100px; /* Diminue l’espace sous le header */
+    margin-bottom: 120px; /* Laisse de l’espace pour le footer */
+}
+@page {
+    margin: 0; /* Supprime toutes les marges par défaut de la page PDF */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+.centered-section {
+    display: flex; /* Utilise Flexbox pour aligner les éléments */
+    flex-direction: column; /* Empile les éléments verticalement */
+    justify-content: center; /* Centre verticalement */
+    align-items: center; /* Centre horizontalement */
+    height: 100%; /* Prend toute la hauteur disponible */
+    text-align: center; /* Centre le texte */
+    font-size: 24px; /* Taille du texte uniforme (peut être ajustée) */
+    color: #2c3e50; /* Couleur du texte */
+}
+
+.centered-section h1 {
+    margin: 0 0 20px; /* Ajoute un espace entre le titre et les paragraphes */
+    margin: 5px 0; /* Ajoute un petit espacement entre les lignes */
+    font-size: 20px; /* Taille des paragraphes */
+
+
+}
+.reference-line {
+    display: flex; /* Utilise Flexbox pour l'alignement */
+    justify-content: space-between; /* Espace entre les deux textes */
+    margin: 20px 40px; /* Marges autour de la ligne */
+    font-size: 16px; /* Taille du texte */
+    direction: rtl; /* Alignement pour l'arabe */
+}
+
+.reference-line .right {
+    flex: 1;
+    text-align: right; /* Aligne "رقم:" à droite */
+    padding-left: 50px; /* Ajoute un petit espace à gauche */
+    padding-right: 90px;
+}
+
+.reference-line .left {
+    flex: 1;
+    text-align: left; /* Positionne légèrement à gauche*/
+    padding-left: 100px;
+}
+.subject-reference {
+    margin: 20px 40px; /* Espacement autour de la section */
+    font-size: 18px; /* Taille du texte */
+    direction: rtl; /* Texte en arabe */
+    line-height: 1.8; /* Interligne pour améliorer la lisibilité */
+}
+
+.reference-section {
+    display: flex; /* Permet d’aligner les éléments sur une seule ligne */
+    align-items: flex-start; /* Aligne les éléments en haut */
+    margin-top: 8px; /* Ajoute un peu d’espace au-dessus de la ligne */
+}
+
+.reference-title {
+    flex: 0 0 120px; /* Largeur fixe pour "المرجع:" */
+    text-align: right; /* Aligne à droite pour l’arabe */
+    font-weight: bold;
+}
+
+.reference-content {
+    flex: 1; /* Prend tout l’espace restant */
+    text-align: right; /* Aligne à droite le contenu arabe */
+}
+
+.reference-content p {
+    margin: 5px 0; /* Espace entre les lignes de contenu */
+}
+.salutation {
+    text-align: center; /* Centre le texte horizontalement */
+    font-size: 18px; /* Taille du texte */
+    font-style: italic; /* Ajoute un style distinct */
+    font-weight: bold; /* Rend le texte en gras */
+    color: #2c3e50; /* Harmonise la couleur avec le reste de la convocation */
+    margin: 20px 0; /* Ajoute un espacement au-dessus et en dessous */
+}
+.convocation-body {
+    margin: 20px 40px; /* Espacement autour de la section */
+    font-size: 18px; /* Taille du texte */
+    line-height: 1.8; /* Interligne pour améliorer la lisibilité */
+    direction: rtl; /* Alignement du texte en arabe */
+    text-align: justify; /* Justifie le texte pour une présentation propre */
+}
+
+.convocation-body p {
+    margin-bottom: 15px; /* Espacement entre les paragraphes */
+}
+
+.indent {
+    display: inline-block; /* Permet de réserver de l'espace */
+    width: 20px; /* Largeur de l'espace simulant l'indentation */
+    height: 1px; /* Invisible mais occupe l'espace */
+}
+.thank-you {
+    text-align: center; /* Centre le texte horizontalement */
+    font-size: 18px; /* Taille du texte */
+    font-style: italic; /* Style italique pour un effet élégant */
+    font-weight: bold; /* Rend le texte en gras */
+    color: #2c3e50; /* Harmonise la couleur avec le reste de la convocation */
+    margin: 20px 0; /* Espacement au-dessus et en dessous */
+}
+/* Header et Footer */
+.header-container, .footer-container {
+    width: 100%; /* Prend toute la largeur de la page */
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    margin: 0; /* Supprime les marges par défaut */
+    padding: 0; /* Supprime les paddings par défaut */
+}
+
+.header-img, .footer-img {
+    display: block; /* Supprime tout comportement inline */
+    margin: 0 auto; /* Centre horizontalement */
+    width: 70%; /* Ajustez selon les besoins */
+    height: auto; /* Maintient les proportions */
+}
+.footer-container {
+    width: 100%; /* Prend toute la largeur */
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement l'image dans le conteneur */
+    position: fixed; /* Fixe le footer en bas de la page */
+    bottom: 0; /* Colle le footer au bord inférieur */
+    margin: 0; /* Supprime les marges */
+    padding: 0; /* Supprime les paddings */
+}
+
+.footer-img {
+    max-width: 80%; /* Limite la largeur de l'image */
+    height: auto; /* Maintient les proportions */
+}
+.header-container {
+    width: 100%; /* Prend toute la largeur */
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    margin: 0; /* Supprime les marges */
+    padding: 0; /* Supprime les paddings */
+}
+
+.header-img {
+    max-width: 80%; /* Ajustez la largeur de l'image si nécessaire */
+    height: auto; /* Maintient les proportions */
+    margin-bottom: 0; /* Évite l’espace sous l’image */
+}
+.reference-line {
+    display: flex;
+    justify-content: space-between; /* Espace entre les éléments */
+    margin: 10px 40px; /* Diminue l'espace au-dessus et au-dessous */
+    font-size: 16px; /* Ajuste la taille du texte */
+}
+main {
+    margin-top: 10px; /* Réduit l’espace sous le header */
+    margin-bottom: 120px; /* Laisse de l’espace au-dessus du footer */
+}
+.signature-container {
+    text-align: center; /* Centre l'image horizontalement */
+    margin: 20px 0; /* Ajoute de l'espace autour */
+}
+
+.signature-img {
+    max-width: 200px; /* Limite la largeur maximale */
+    height: auto; /* Maintient les proportions */
+    display: inline-block; /* Évite les comportements non souhaités */
+}
+.highlight {
+    font-weight: bold; /* Texte en gras */
+    color: red; /* Couleur rouge */
+}

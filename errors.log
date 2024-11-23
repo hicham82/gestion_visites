@@ -1,0 +1,19 @@
+Watching for file changes with StatReloader
+[23/Nov/2024 15:26:19] "GET / HTTP/1.1" 302 0
+[23/Nov/2024 15:26:19] "GET /login/ HTTP/1.1" 200 2910
+[23/Nov/2024 15:26:22] "POST /login/ HTTP/1.1" 302 0
+[23/Nov/2024 15:26:22] "GET /liste-visites/ HTTP/1.1" 200 16540
+[23/Nov/2024 16:41:02] "GET / HTTP/1.1" 302 0
+[23/Nov/2024 16:41:02] "GET /login/ HTTP/1.1" 200 3414
+[23/Nov/2024 16:41:06] "GET /statistiques/ HTTP/1.1" 200 6163
+[23/Nov/2024 16:41:10] "GET /liste-visites/ HTTP/1.1" 200 16540
+[23/Nov/2024 16:41:36] "GET / HTTP/1.1" 302 0
+[23/Nov/2024 16:41:36] "GET /login/ HTTP/1.1" 200 3414
+[23/Nov/2024 16:41:40] "POST /login/ HTTP/1.1" 302 0
+[23/Nov/2024 16:41:40] "GET /liste-visites/ HTTP/1.1" 200 16540
+[23/Nov/2024 16:41:46] "GET /static/css/convocation.css HTTP/1.1" 200 8325
+[23/Nov/2024 16:41:46] "GET /static/css/%7B%%20static%20'fonts/Amiri-Regular.ttf'%20%%7D HTTP/1.1" 404 1984
+[23/Nov/2024 16:41:46] "GET /static/images/header.jpg HTTP/1.1" 200 50515
+[23/Nov/2024 16:41:46] "GET /static/images/signature.jpg HTTP/1.1" 200 8949
+[23/Nov/2024 16:41:46] "GET /static/images/footer.jpg HTTP/1.1" 200 7536
+[23/Nov/2024 16:41:46] "GET /visite/64/print/ HTTP/1.1" 200 91823

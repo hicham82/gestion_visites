@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/convocation.css' %}">
+    <title>Convocation</title>
+
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="{% static 'images/header.jpg' %}" alt="Entête" class="header-img">
+        </div>
+    </header>
+    <!-- Page 1: Convocation de l'enseignant -->
+    <main>
+        <div class="reference-line">
+            <span class="right">رقم: <span class="highlight">4103/24</span></span>
+            <span class="left">تنغير، في: <span class="highlight">2024/11/22</span></span>
+        </div>
+        <div class="centered-section">
+            <h1>المدير الإقليمي</h1>
+            <h1>إلى السيد(ة): {{ enseignant.nom_enseignant }}</h1>
+            <h1>رقم التأجير: {{ enseignant.som_enseignant }}</h1>
+            <h1>تحت إشراف السيد(ة) مدير(ة): {{ enseignant.etab_enseignant }}</h1>
+        </div>
+
+        <div class="subject-reference">
+            <p><strong>الموضوع:</strong> في شأن ترسيم الموظفين المتمرنين الخاضعين للنظام الأساسي الخاص بموظفي الوزارة المكلفة بالتربية الوطنية الذين تم توظيفهم ابتداء من فاتح شتنبر 2023.</p>
+            <div class="reference-section">
+                <span class="reference-title"><strong>المرجــع:</strong></span>
+                <span class="reference-content">
+                    <p>المراسلة الوزارية المسجلة تحت عدد 206 بتاريخ 29 يوليوز 2024.</p>
+                    <p>المراسلة الوزارية المسجلة تحت عدد 3686 بتاريخ 21 أكتوبر 2024.</p>
+                </span>
+            </div>
+        </div>
+        <div class="salutation">
+            <p>سلام تام بوجود مولانا الإمام المؤيد بالله</p>
+        </div>
+
+        <div class="convocation-body">
+            <p>
+                <span class="indent"></span>وبعد، فعلاقة بالموضوع والمرجع المشار إليهما أعلاه، وفي إطار ترسيم الموظفين المتمرنين الخاضعين للنظام الأساسي الخاص بموظفي الوزارة المكلفة بالتربية الوطنية الذين تم توظيفهم ابتداء من فاتح شتنبر 2023، يشرفني أن أخبركم أن لجنة الترسيم الخاصة بكم ستنعقد يوم <strong>{{ date_visite_ar }}</strong> على الساعة <strong>{{ visite.heure_visite }}</strong> بمركز: <strong>{{ visite.centre_visite }}</strong>.
+            </p>
+            <p>
+                <span class="indent"></span>وعليه، ندعوكم للحضور في الزمان والمكان المحددين من أجل مناقشة درس والملف التربوي الخاص بكم.
+            </p>
+        </div>
+        <div class="thank-you">
+            <p>وتقبلوا أزكى التحيات والسلام.</p>
+        </div>
+        <div class="signature-container">
+            <img src="{% static 'images/signature.jpg' %}" alt="Signature" class="signature-img">
+        </div>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <img src="{% static 'images/footer.jpg' %}" alt="Pied de page" class="footer-img">
+        </div>
+    </footer>
+    <div class="page-break"></div>
+
+    <!-- Page 2: Convocation du premier accompagnateur -->
+    <header>
+        <div class="header-container">
+            <img src="{% static 'images/header.jpg' %}" alt="Entête" class="header-img">
+        </div>
+    </header>
+    <main>
+        <div class="reference-line">
+            <span class="right">رقم: <span class="highlight">4103/24</span></span>
+            <span class="left">تنغير، في: <span class="highlight">22/11/2024</span></span>
+        </div>
+        <div class="centered-section">
+            <h1>المدير الإقليمي</h1>
+            <h1>إلى السيد(ة): {{ accompagnateurs.0.nom }}</h1>
+            <h1>رقم التأجير: {{ accompagnateurs.0.som }}</h1>
+            <h1>مقر العمل: {{ accompagnateurs.0.etab }}</h1>
+        </div>
+        <div class="subject-reference">
+            <p><strong>الموضوع:</strong> في شأن ترسيم الموظفين المتمرنين الخاضعين للنظام الأساسي الخاص بموظفي الوزارة المكلفة بالتربية الوطنية الذين تم توظيفهم ابتداء من فاتح شتنبر 2023.</p>
+            <div class="reference-section">
+                <span class="reference-title"><strong>المرجــع:</strong></span>
+                <span class="reference-content">
+                    <p>المراسلة الوزارية المسجلة تحت عدد 206 بتاريخ 29 يوليوز 2024.</p>
+                    <p>المراسلة الوزارية المسجلة تحت عدد 3686 بتاريخ 21 أكتوبر 2024.</p>
+                </span>
+            </div>
+        </div>
+        <div class="salutation">
+            <p>سلام تام بوجود مولانا الإمام المؤيد بالله</p>
+        </div>
+
+        <div class="convocation-body">
+            <p>
+                <span class="indent"></span>وبعد، فعلاقة بالموضوع والمرجع المشار إليهما أعلاه، يشرفني أن أخبركم أنه تم اختياركم عضوا ضمن لجنة ترسيم الموظفين المتمرنين الخاضعين للنظام الأساسي الخاص بموظفي الوزارة   المكلفة بالتربية الوطنية الذين تم توظيفهم ابتداء من فاتح شتنبر 2023، والتي ستنعقد يوم <strong>{{ date_visite_ar }}</strong> على الساعة <strong>{{ visite.heure_visite }}</strong> بمركز: <strong>{{ visite.centre_visite }}</strong>.
+            </p>
+            <p>
+                <span class="indent"></span>وعليه، ندعوكم للحضور في الزمان والمكان المحددين لانعقاد لجنة الترسيم.
+            </p>
+        </div>
+        <div class="thank-you">
+            <p>وتقبلوا أزكى التحيات والسلام.</p>
+        </div>
+        <div class="signature-container">
+            <img src="{% static 'images/signature.jpg' %}" alt="Signature" class="signature-img">
+        </div>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <img src="{% static 'images/footer.jpg' %}" alt="Pied de page" class="footer-img">
+        </div>
+    </footer>
+    <div class="page-break"></div>
+
+    <!-- Page 3: Convocation du deuxième accompagnateur -->
+    <header>
+        <div class="header-container">
+            <img src="{% static 'images/header.jpg' %}" alt="Entête" class="header-img">
+        </div>
+    </header>
+    <main>
+        <div class="reference-line">
+            <span class="right">رقم: <span class="highlight">4103/24</span></span>
+            <span class="left">تنغير، في: <span class="highlight">22/11/2024</span></span>
+        </div>
+        <div class="centered-section">
+            <h1>المدير الإقليمي</h1>
+            <h1>إلى السيد(ة): {{ accompagnateurs.1.nom }}</h1>
+            <h1>رقم التأجير: {{ accompagnateurs.1.som }}</h1>
+            <h1>مقر العمل: {{ accompagnateurs.1.etab }}</h1>
+        </div>
+        <div class="subject-reference">
+            <p><strong>الموضوع:</strong> في شأن ترسيم الموظفين المتمرنين الخاضعين للنظام الأساسي الخاص بموظفي الوزارة المكلفة بالتربية الوطنية الذين تم توظيفهم ابتداء من فاتح شتنبر 2023.</p>
+            <div class="reference-section">
+                <span class="reference-title"><strong>المرجــع:</strong></span>
+                <span class="reference-content">
+                    <p>المراسلة الوزارية المسجلة تحت عدد 206 بتاريخ 29 يوليوز 2024.</p>
+                    <p>المراسلة الوزارية المسجلة تحت عدد 3686 بتاريخ 21 أكتوبر 2024.</p>
+                </span>
+            </div>
+        </div>
+        <div class="salutation">
+            <p>سلام تام بوجود مولانا الإمام المؤيد بالله</p>
+        </div>
+
+        <div class="convocation-body">
+            <p>
+                <span class="indent"></span>وبعد، فعلاقة بالموضوع والمرجع المشار إليهما أعلاه، يشرفني أن أخبركم أنه تم اختياركم عضوا ضمن لجنة ترسيم الموظفين المتمرنين الخاضعين للنظام الأساسي الخاص بموظفي الوزارة   المكلفة بالتربية الوطنية الذين تم توظيفهم ابتداء من فاتح شتنبر 2023، والتي ستنعقد يوم <strong>{{ date_visite_ar }}</strong> على الساعة <strong>{{ visite.heure_visite }}</strong> بمركز: <strong>{{ visite.centre_visite }}</strong>.
+            </p>
+            <p>
+                <span class="indent"></span>وعليه، ندعوكم للحضور في الزمان والمكان المحددين لانعقاد لجنة الترسيم.
+            </p>
+        </div>
+        <div class="thank-you">
+            <p>وتقبلوا أزكى التحيات والسلام.</p>
+        </div>
+        <div class="signature-container">
+            <img src="{% static 'images/signature.jpg' %}" alt="Signature" class="signature-img">
+        </div>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <img src="{% static 'images/footer.jpg' %}" alt="Pied de page" class="footer-img">
+        </div>
+    </footer>
+</body>
+</html>
+
